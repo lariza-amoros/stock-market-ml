@@ -1,0 +1,19 @@
+Can Machine Learning Beat the Stock Market? — EDA Summary
+
+1. Data scope and quality
+The reproducible Yahoo Finance snapshot contains 2,766 trading observations and 50 columns, from 2015-01-02 to 2025-12-31. It covers eight stocks across technology, consumer discretionary, communication services, financial services, energy and healthcare, plus SPY and VIX. There are 0 missing values. Computing daily returns leaves 2,765 observations because the first price has no preceding observation. No 2026 prices are used. Adjusted prices may differ from the earlier snapshot because the provider revises adjustments.
+
+2. Return distribution and volatility
+NVDA has the highest sample mean daily return (0.26%) and NVDA has the highest daily standard deviation (3.07%). SPY has the lowest standard deviation (1.12%). SPY's mean daily return is 0.06% and its daily standard deviation is 1.12%. These are descriptive averages, not guaranteed future returns. NVDA's daily extremes are -18.76% and 29.81%. Extreme movements make both return and risk forecasting challenging.
+
+3. Correlation and diversification
+MSFT–SPY correlation is 0.79, AAPL–SPY is 0.75, and NVDA–JNJ is 0.13. Correlations describe historical co-movement and do not establish causation. Low correlation can support diversification, but relationships may change between market regimes. Full-period correlations are exploratory only and are not supplied to predictive models.
+
+4. Figures and interpretation
+The project includes labeled historical-price plots, daily-return distributions, annualized-volatility comparison and a correlation heatmap. Annualized historical volatility uses daily return standard deviation multiplied by sqrt(252). Market prices reflect noisy information, unexpected events, changing economic conditions and transaction costs; historical relationships may not generalize.
+
+5. Modeling boundary
+Each stock receives the same 12 technical features, calculated from information available at the signal date. SPY and S&P 500 are excluded from training rows, predictors and targets and are used only for exploratory comparison and portfolio benchmarking. VIX, Federal Reserve policy and documented events are assessed separately in feature ablations. Events are available from the next trading session after their dated announcement. Event selection is retrospective, so this experiment is exploratory rather than a causal estimate.
+
+6. Evaluation protocol
+Five-day closing-price return is the academic regression target. High-risk labels use each stock's training-only 75th percentile of future five-day annualized volatility. Chronological validation and target-boundary purging prevent overlap across partitions. Hyperparameter and model choices are frozen using data through 2023 before the 2024–2025 final test. Backtesting uses the next session's open, three investment strategies, an initial $100,000 and transaction costs. Predictive accuracy and investment return are separate outcomes; conclusions require the reported experiments and do not assume that the models outperform SPY.

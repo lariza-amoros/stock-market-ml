@@ -1,0 +1,18 @@
+Verificación: 12 de octubre de 2026, datos exclusivamente 2015–2025.
+
+PASS: 12 variables técnicas por cada una de 8 acciones.
+PASS: modificar SPY no cambia características o targets del modelo.
+PASS: modificar precios futuros no cambia características previas.
+PASS: fronteras cronológicas purgadas de targets que cruzan particiones.
+PASS: objetivo académico cierre t+5 / cierre t - 1.
+PASS: cuatro carteras parten de $100,000 y no usan precios de 2026.
+PASS: SPY simulado coincide con buy-and-hold en iguales aperturas.
+PASS: clases de riesgo consistentes entre modelos individuales y pooled.
+PASS: frontend genera ocho pronósticos fuera de entrenamiento.
+PASS: cuenta demo realiza y registra operación virtual de cinco sesiones.
+PASS: notebook autónomo ejecutado de principio a fin sin errores.
+PASS: gráficos inspeccionados visualmente; límites de fechas y etiquetas uniformes.
+
+Se modificaron únicamente límites y etiquetas de gráficos después de la ejecución completa; se regeneraron y verificaron sin cambiar modelos o métricas.
+
+El mínimo adicional indicado por el usuario es 70%. La métrica/fórmula no está definida: accuracy de riesgo máximo 80.6% supera ese nivel; acierto de dirección máximo 58.2% no lo alcanza. No confundir accuracy, F1 y rentabilidad ni declarar cumplimiento global del mínimo.
