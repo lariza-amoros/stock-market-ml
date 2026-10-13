@@ -1,7 +1,16 @@
 [theme]
-primaryColor="#2563eb"
-backgroundColor="#ffffff"
-secondaryBackgroundColor="#f1f5f9"
-textColor="#0f172a"
+base="dark"
+primaryColor="#9b23c9"
+backgroundColor="#050507"
+secondaryBackgroundColor="#111119"
+textColor="#f1f5ff"
+linkColor="#00f5ff"
+borderColor="#34304d"
+greenColor="#39ff88"
+redColor="#ff4d8d"
+violetColor="#d078ff"
+chartCategoricalColors=["#00f5ff", "#39ff88", "#ff4dcb", "#ffe55b"]
+dataframeHeaderBackgroundColor="#191426"
+dataframeHeaderTextColor="#00f5ff"
 [server]
 headless=true
