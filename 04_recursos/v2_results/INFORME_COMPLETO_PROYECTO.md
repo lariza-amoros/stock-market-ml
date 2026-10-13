@@ -4,7 +4,7 @@
 **Fecha:** 13 de octubre de 2026. **Autora/cuenta de entrega:** lariza-amoros. **Versión:** modelo original v2 y notebook organizado. Este informe sirve para revisar código y resultados; no cambia los modelos ni incorpora experimentos posteriores.
 
 ## 1. Estado ejecutivo
-El entregable académico está implementado y se ejecutó de principio a fin. El notebook vigente tiene 37 celdas, 18 de código ejecutadas y cero errores guardados. Las comprobaciones de invariancia, particiones, capital, benchmark y frontend local se reejecutaron y pasaron. La responsabilidad de comprender/verificar personalmente el trabajo y describir honestamente la asistencia IA corresponde al alumno.
+El entregable académico está implementado y se ejecutó de principio a fin. El notebook vigente tiene 38 celdas, 18 de código ejecutadas y cero errores guardados. Las comprobaciones de invariancia, particiones, capital, benchmark y frontend local se reejecutaron y pasaron. La responsabilidad de comprender/verificar personalmente el trabajo y describir honestamente la asistencia IA corresponde al alumno.
 
 El modelo de retorno oficial es XGBoost pooled con doce features; el modelo de riesgo oficial es XGBoost individual con las mismas doce features. La selección procede de validación anterior a 2024. El proyecto estudia inversión a cinco sesiones, no day trading ni resultados reales de 2026. Los experimentos están en la carpeta hermana experimentos y no forman parte del modelo entregado.
 
@@ -235,7 +235,9 @@ Publicados notebook vigente, módulos v2, snapshot de datos, modelos entrenados,
 | 10 | [05_codigo/v2/research.py:110](../../05_codigo/v2/research.py#L110) | Coordinación del pipeline y archivos |
 | 11 | [05_codigo/v2/app.py:30](../../05_codigo/v2/app.py#L30) | Inferencia con modelos guardados, demo y presentación |
 
-## 20. Mapa del notebook para revisión celda a celda
+## 20. Mapa histórico de la versión organizada
+
+Esta tabla corresponde a la versión previa de 37 celdas. La versión actual tiene 38: se añadió una explicación del snapshot antes de la celda de carga; desde esa posición los índices se desplazan una celda.
 | Celda | Tipo | Inicio | Ejecutada |
 |---|---|---|---|
 | 1 | markdown | # Can Machine Learning Beat the Stock Market? | — |
@@ -295,3 +297,50 @@ model_metrics.csv, hyperparameter_tuning.csv, walk_forward.csv, frozen_choices.j
 Python 3.12 y versiones documentadas en requirements.txt. El frontend lee modelos/datos guardados y no requiere entrenar en cada sesión. Ejecutar research.py recalcula resultados, por lo que conviene usar una copia/versionado para conservar snapshots originales. El notebook principal genera su propio código/datos de trabajo; no depende de scripts externos para el entregable académico. Modelos y datos originales no se alteraron para este informe.
 
 El generador de este informe es work/build_project_report.py. Las tablas se derivan de archivos originales; el baseline siempre-subida se añadió como diagnóstico explícito, no como sustitución retrospectiva del modelo. Antes de calificar cualquier variante como mejor, revisar error, baselines, riesgo, costos y estabilidad temporal juntos.
+
+
+## 24. Reporte resumido de trabajo y cierre — 13 de octubre de 2026
+
+**Objetivo:** evaluar RF y XGBoost para retornos y riesgo a cinco sesiones, y construir carteras comparadas con SPY. Datos exclusivamente 2015–2025; ocho acciones; SPY fuera del entrenamiento.
+
+**Proceso:** datos y EDA → doce features técnicas por acción → targets y umbrales calculados con entrenamiento → particiones cronológicas purgadas → tuning previo al test → comparación RF/XGB, pooled/individual y contexto A/B/C → cuatro carteras → interpretación y verificaciones. Validación 2023 y test 2024–2025. Las señales se ejecutan en la apertura siguiente; costos de 10 bps por lado y rebalanceo de cinco sesiones.
+
+**Resultados conservados:** dirección máxima 58.17%, siempre sube 58.54%; accuracy de riesgo máxima 80.59% (RF pooled C), accuracy oficial 77.95% y F1 oficial 29.15% (XGB individual A). Retornos: ML Top 3 126.06%, equal weight 87.62%, risk-aware 62.53%, SPY 49.68%. Son métricas y modelos diferentes; no se sustituyó el 80.6% por el 77.95%.
+
+**Organización:** Drive conserva las cinco carpetas principales, AGENTS.md, ENTREGA.md y README.md; versiones antiguas en «version anterior». Se separaron experimentos del original. Caldero Verde permanece en su propio repositorio; solo se retiró su notebook de Stock Market mediante commit recuperable.
+
+**Depuración:** se eliminó Base64 del código de datos y se corrigió la celda final de hashes para leer los archivos reales. Snapshot fijado a un commit y SHA-256 verificado. La versión actual ejecutó 38 celdas, incluidos 18 bloques de código, sin errores; datos y métricas coinciden con los originales. Las imágenes siguen en las salidas normales del notebook. Requiere internet para la carga inicial.
+
+**Entrega:** notebook actualizado en GitHub con el mismo enlace y contenido comprobado contra Drive; README actualizado. [Streamlit público](https://lariza-stock-market-ml.streamlit.app/) con fondo negro/neón: ocho pronósticos, simulación con costos, bloqueo de capital futuro y reinicio verificados. En Drive, resultados_v2.zip incluye modelos, 24 predicciones, equity y operaciones; para ejecutar app.py como paquete debe extraerse conservando las rutas. El nombre del notebook actual en Drive es stock_market_proyecto.ipynb, con el mismo ID de la copia limpia.
+
+**Estado:** las métricas obligatorias están presentes. La rúbrica no impone accuracy mínimo ni obliga a superar SPY. La meta adicional de 70% no se cumple en dirección/F1. Falta la revisión personal del alumno y actualizar texto antiguo de 90–95% en research.py de Drive; sus cálculos coinciden. No se cambiaron resultados para cumplir un objetivo.
+
+## 25. Discusión científica: las siete respuestas obligatorias
+
+### 1. ¿Qué algoritmo ofreció mejor desempeño y por qué?
+
+Para retornos del grupo A pooled, XGBoost obtuvo MAE 0.029626 frente a 0.029732 de RF, y dirección 58.17% frente a 58.09%. La diferencia es pequeña. El boosting puede aprender relaciones no lineales, pero este experimento no demuestra que su arquitectura cause la mejora ni que evite memorizar ruido. En riesgo, el mayor accuracy fue de RF pooled C (80.59%); el modelo oficial de riesgo se seleccionó por validación, no por maximizar accuracy del test.
+
+### 2. ¿Fue más difícil predecir retornos que volatilidad?
+
+La dirección ofrece evidencia limitada: 58.17% frente a 58.54% de siempre sube. La persistencia de volatilidad es una explicación plausible, no comprobada causalmente aquí. No se comparan directamente porcentajes de tareas distintas: el accuracy oficial de riesgo 77.95% queda debajo del baseline mayoritario 79.74%, y su F1 es 29.15%. Un accuracy alto no garantiza detectar bien la clase de alto riesgo.
+
+### 3. ¿Los modelos pooled superaron a los individuales?
+
+En las comparaciones de retornos, pooled obtuvo menor MAE. Compartir observaciones permite aprender patrones entre acciones, pero las filas correlacionadas no equivalen a ocho veces más información independiente. En riesgo, el resultado depende de algoritmo, grupo y métrica: la elección oficial individual no demuestra superioridad universal.
+
+### 4. ¿La estrategia de ML superó a SPY?
+
+Sí, en este backtest 2024–2025: ML Top 3 126.06% frente a SPY 49.68%. También sufrió mayor drawdown: −26.51% frente a −18.76%. El ranking es el mecanismo de selección; no se aisló su efecto causal ni se probó superioridad estable en otros periodos o en trading futuro.
+
+### 5. ¿Mejor predicción produjo necesariamente mejores retornos?
+
+No. Dirección, error de retorno, ranking, exposición, concentración y costos influyen de forma diferente. ML Top 3 ganó más pese a no superar el baseline direccional; risk-aware rindió menos y tuvo mayor drawdown. La clasificación de riesgo original no aportó una mejora demostrada al equilibrio rendimiento/riesgo.
+
+### 6. ¿Qué evidencia respalda la generalización?
+
+Selección previa por validación, particiones cronológicas con purga, umbrales de entrenamiento y evaluación común 2024–2025, más ventanas anteriores walk-forward. Esto respalda una evaluación fuera de entrenamiento, sin demostrar consistencia futura. Semillas, ejecución completa y SHA-256 prueban reproducibilidad e integridad, no generalización. El test ya fue observado: nuevas optimizaciones deben declararse exploratorias.
+
+### 7. ¿Cuáles son las limitaciones y cómo mejorar el enfoque?
+
+Universo pequeño de acciones sobrevivientes, precios ajustados revisables, targets solapados, correlación entre acciones, catálogo retrospectivo de eventos, baja detección de alto riesgo y costos simplificados. Mejoras a evaluar aparte: datos disponibles en cada fecha de publicación, validación temporal adicional purgada, calibración/umbrales definidos solo con validación, costos y liquidez más realistas y paper trading prospectivo. Ninguna mejora garantiza 70%, 90% o 95%; no debe ajustarse contra el test observado.
