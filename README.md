@@ -46,6 +46,7 @@ Aplicación publicada y probada: [Abrir frontend](https://lariza-stock-market-ml
 | Dirección del modelo oficial | 58.17% |
 | Baseline «siempre sube» en la misma muestra | 58.54% |
 | Accuracy de riesgo oficial | 77.95% |
+| Mayor accuracy de riesgo evaluada (RF pooled, grupo C) | 80.59% |
 | F1 de riesgo oficial | 29.15% |
 | Retorno histórico ML top 3 | 126.06% |
 | Retorno histórico SPY | 49.68% |
@@ -57,3 +58,9 @@ El mínimo adicional actual es **70%**; debe especificarse la métrica. Se super
 `01_notebooks/`: entrega autónoma; `02_datos/v2/`: snapshot y contexto; `03_graficos/v2/`: figuras; `04_recursos/v2_results/`: modelos y resultados; `05_codigo/v2/`: pipeline original; `streamlit_app.py`: frontend de entrega.
 
 El notebook incluye seis secciones, interpretaciones, siete preguntas científicas y declaración de IA. La revisión/explicación personal del alumno sigue siendo necesaria. El test ya fue observado; cambios posteriores son exploratorios. Backtesting histórico y demo, sin conexión a bróker, no prueban rendimiento futuro.
+
+## Verificación de la versión actual
+
+El notebook conserva su nombre y enlace. Se eliminó el bloque Base64 de datos del código y se corrigió la celda final de hashes para verificar SHA-256 directamente sobre los archivos. El snapshot se obtiene de un commit fijo y requiere internet inicialmente. Las imágenes normales permanecen en las salidas del notebook.
+
+La versión actual ejecutó sus 38 celdas, incluidos los 18 bloques de código, de principio a fin sin errores. Los datos y las métricas reprodujeron los resultados originales. El 80.59% corresponde a RF pooled con contexto/eventos; el 77.95% corresponde al modelo de riesgo oficial XGBoost individual. No son resultados del mismo modelo. La limpieza no cambió los algoritmos, hiperparámetros ni resultados numéricos.
