@@ -28,7 +28,7 @@ Abrir [Streamlit Community Cloud](https://share.streamlit.io/), iniciar sesión 
 - Main file path: `streamlit_app.py`
 - Python: **3.12** en Advanced settings.
 
-La URL pública de la aplicación se genera después del deploy. Este repositorio no afirma que la aplicación ya esté publicada.
+Aplicación publicada y probada: [Abrir frontend](https://lariza-stock-market-ml.streamlit.app/). Incluye ocho pronósticos, resultados y cuenta demo histórica.
 
 ## Modelo oficial
 
