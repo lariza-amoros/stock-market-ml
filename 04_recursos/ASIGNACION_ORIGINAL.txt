@@ -1,0 +1,263 @@
+Project: Can Machine Learning Beat the Stock Market?
+Duration: 3 Days
+Difficulty: Intermediate–Advanced
+Algorithms: Random Forest and XGBoost
+Language: Python
+Deliverable: One Jupyter Notebook (.ipynb)
+AI Assistance: Allowed and encouraged
+
+Project Overview
+Can machine learning predict stock market behavior? More importantly, can those predictions be used to make better investment decisions?
+
+In this project, you will develop an end-to-end machine learning pipeline to analyze historical stock market data, predict future stock returns, estimate investment risk, and simulate investment strategies.
+
+You will compare Random Forest and XGBoost, two widely used ensemble learning algorithms, to investigate whether historical financial patterns contain useful predictive information.
+
+Your final goal is to determine whether your machine learning models can outperform simple investment strategies, including a market benchmark.
+
+You are encouraged to use AI assistants (ChatGPT, Codex, GitHub Copilot, etc.) to help develop, debug, and improve your implementation. However, you are responsible for understanding your code, interpreting your results, and explaining your conclusions.
+
+Learning Objectives
+By completing this project, you should be able to:
+
+Collect, clean, and explore real-world financial data.
+Engineer meaningful features from historical time-series observations.
+Develop regression and classification models using Random Forest and XGBoost.
+Apply appropriate training, validation, and testing strategies for time-series data.
+Evaluate and compare machine learning models using multiple performance metrics.
+Interpret model predictions and feature importance.
+Translate machine learning predictions into simulated investment decisions.
+Critically assess whether machine learning provides measurable value over simple baselines.
+Part 1 — Data Collection and Exploratory Analysis
+Suggested completion: Day 1
+
+Use the yfinance Python library to download daily historical financial data from January 2015 through December 2025.
+
+Analyze at least eight publicly traded stocks from different sectors. You may use the following:
+
+Ticker	Company	Sector
+AAPL	Apple	Technology
+MSFT	Microsoft	Technology
+NVDA	NVIDIA	Technology
+AMZN	Amazon	Consumer Discretionary
+GOOGL	Alphabet	Communication Services
+JPM	JPMorgan Chase	Financial Services
+XOM	ExxonMobil	Energy
+JNJ	Johnson & Johnson	Healthcare
+Additionally, download:
+
+SPY: S&P 500 ETF, representing the broader market.
+VIX (^VIX): Market volatility index.
+Requirements
+Download and organize the historical data.
+Inspect missing values, distributions, and temporal coverage.
+Visualize historical stock prices and daily returns.
+Compare volatility across different stocks.
+Investigate correlations between stock returns.
+Explain why predicting financial markets may be difficult.
+Required visualizations:
+
+Historical closing prices for selected stocks.
+Distribution of daily returns.
+Correlation heatmap of stock returns.
+Part 2 — Feature Engineering
+Suggested completion: Day 1
+
+Machine learning models cannot directly understand financial markets. You must construct meaningful predictors from historical observations.
+
+Create at least 12 features using the following categories:
+
+Category	Example features
+Momentum	1-day, 5-day, 10-day, and 20-day returns
+Trend	5-day and 20-day moving averages
+Volatility	5-day and 20-day rolling standard deviations
+Volume	Daily volume changes and volume moving averages
+Technical indicators	Relative Strength Index (RSI), MACD
+Market context	SPY returns, VIX
+Relative performance	Stock returns relative to SPY
+You may implement additional features if you believe they could improve predictive performance.
+
+Prediction targets
+Construct two prediction targets for each stock.
+
+Target A — Future Stock Return (Regression)
+
+Predict the percentage return over the next five trading days:
+
+[
+R_{t,t+5}=\frac{P_{t+5}-P_t}{P_t}
+]
+
+Target B — Future Market Risk (Classification)
+
+Predict whether a stock will experience high volatility during the next five trading days.
+
+Define high volatility using a clearly documented threshold determined from training data.
+
+Important: All features must use information available at the time of prediction. Using future observations to construct predictive features is considered data leakage.
+
+Part 3 — Machine Learning Model Development
+Suggested completion: Day 2
+
+Develop and compare the following algorithms:
+
+Random Forest Regressor
+XGBoost Regressor
+Random Forest Classifier
+XGBoost Classifier
+Experiment A — Stock Return Prediction
+Train models to predict five-day future stock returns.
+
+Evaluate using:
+
+Mean Absolute Error (MAE)
+Root Mean Squared Error (RMSE)
+Directional Accuracy
+Spearman Rank Correlation
+Compare your models against a simple baseline that predicts zero future return.
+
+Experiment B — Market Risk Classification
+Train models to predict whether the next five trading days will experience high volatility.
+
+Evaluate using:
+
+Accuracy
+Precision
+Recall
+F1-score
+ROC-AUC
+Compare your results against a majority-class baseline.
+
+Model training requirements
+Use chronological training, validation, and testing splits.
+Reserve 2024–2025 as an untouched final test period.
+Use earlier observations for model development and hyperparameter tuning.
+Tune at least two hyperparameters for each algorithm.
+Compare Random Forest and XGBoost using identical evaluation periods.
+Prevent data leakage, including overlap between training targets and subsequent validation or test periods.
+Advanced challenge: Compare two modeling approaches:
+
+Individual models: Train a separate model for each stock.
+Pooled model: Train a single model using observations from all stocks.
+Investigate whether learning from multiple stocks improves generalization.
+
+Part 4 — Portfolio Simulation
+Suggested completion: Day 3
+
+Imagine you are managing a hypothetical investment portfolio with an initial value of $100,000.
+
+Use your trained machine learning models to construct investment strategies.
+
+Strategy 1 — Equal-Weight Portfolio
+Distribute capital equally across all selected stocks.
+
+This represents a simple diversification strategy.
+
+Strategy 2 — Machine Learning Portfolio
+Use predicted five-day returns to rank stocks.
+
+At each rebalancing period:
+
+Predict future returns for all stocks.
+Select the three stocks with the highest predicted returns.
+Allocate capital equally among those stocks.
+Hold the positions until the next rebalancing period.
+Strategy 3 — Risk-Aware Machine Learning Portfolio
+Combine predicted returns with your volatility classification model.
+
+Select stocks based on predicted returns while avoiding or penalizing stocks classified as high risk.
+
+You must explain your selection and allocation methodology.
+
+Backtesting requirements
+Evaluate all strategies on the same untouched test period and compare them with SPY buy-and-hold.
+
+Calculate:
+
+Total return
+Annualized return
+Annualized volatility
+Sharpe ratio
+Maximum drawdown
+Include a realistic transaction-cost assumption and avoid look-ahead bias. Predictions must be generated using information available before the simulated trade. For simplicity, you may rebalance every five trading days and use next-session executable prices.
+
+Required visualization: A single plot showing the growth of $100,000 under each strategy, including the SPY benchmark.
+
+Part 5 — Model Interpretation and Scientific Discussion
+Suggested completion: Day 3
+
+Investigate what your models have learned.
+
+Feature Importance
+Identify and visualize the ten most important features for Random Forest and XGBoost.
+
+Discuss:
+
+Which financial indicators contribute most strongly to predictions?
+Do both algorithms identify similar important features?
+Does adding more features always improve performance?
+Are important features consistent across different stocks?
+You may use permutation importance or SHAP to support your interpretation.
+
+Critical Thinking Questions
+Answer the following questions in Markdown cells within your notebook:
+
+Which algorithm performed better, Random Forest or XGBoost? Why might this be the case?
+Was predicting stock returns more difficult than predicting volatility?
+Did pooled models outperform stock-specific models?
+Did your machine learning investment strategy outperform SPY?
+Did better predictive performance necessarily produce better investment returns?
+What evidence suggests that your models generalized beyond their training data?
+What are the main limitations of your approach, and how would you improve it?
+Your conclusions must be supported by experimental results rather than assumptions.
+
+Final Deliverable
+Submit one Jupyter Notebook (.ipynb) containing your entire project.
+
+Your notebook must include:
+
+Data acquisition and exploratory analysis.
+Feature engineering and target construction.
+Random Forest and XGBoost implementations.
+Regression and classification experiments.
+Hyperparameter tuning and model comparison.
+Portfolio simulations and benchmark comparisons.
+Required figures and evaluation tables.
+Written interpretations, conclusions, and limitations.
+Organize your notebook with clear Markdown headings, explanatory text, readable code, and labeled visualizations.
+
+The notebook must run from beginning to end without errors in an environment with the documented dependencies installed. Use reproducible random seeds where applicable.
+
+No separate report, presentation, or source-code submission is required.
+
+Grading Rubric
+Component	Weight
+Data collection and exploratory analysis	15%
+Feature engineering and leakage prevention	15%
+Random Forest and XGBoost implementation	20%
+Model evaluation and comparison	20%
+Portfolio simulation	15%
+Interpretation, conclusions, and notebook quality	15%
+Total	100%
+AI Assistance Policy
+You are encouraged to use generative AI tools throughout this project.
+
+You may use AI to:
+
+Generate and explain Python code.
+Troubleshoot errors and optimize implementations.
+Explore alternative features and model configurations.
+Develop visualizations and interpret evaluation metrics.
+Investigate financial indicators and machine learning concepts.
+However, AI-generated code is not automatically correct. You must verify that your implementation works, that your experiments are scientifically valid, and that your conclusions are supported by the results.
+
+Include a brief Markdown section at the end of your notebook describing how you used AI assistance and identifying at least one AI-generated suggestion or implementation that you independently verified or corrected.
+
+Final Challenge
+Can your machine learning models consistently outperform simple baselines on unseen financial data?
+
+A successful project does not require beating the market.
+
+A well-designed experiment demonstrating that Random Forest or XGBoost fails to outperform a baseline can be just as scientifically valuable as a successful prediction model.
+
+Your objective is to build a reproducible machine learning experiment, evaluate its performance critically, and defend your conclusions using evidence.
