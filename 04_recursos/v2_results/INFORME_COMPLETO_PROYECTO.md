@@ -8,7 +8,7 @@ El entregable académico está implementado y se ejecutó de principio a fin. El
 
 El modelo de retorno oficial es XGBoost pooled con doce features; el modelo de riesgo oficial es XGBoost individual con las mismas doce features. La selección procede de validación anterior a 2024. El proyecto estudia inversión a cinco sesiones, no day trading ni resultados reales de 2026. Los experimentos están en la carpeta hermana experimentos y no forman parte del modelo entregado.
 
-El frontend histórico original ya existe y fue probado localmente. Se está preparando una entrada de despliegue con el modelo oficial. Repositorio independiente de entrega: https://github.com/lariza-amoros/stock-market-ml . La publicación completa del código y la URL de una aplicación activa deben verificarse por separado; crear un repositorio no confirma el despliegue. Caldero Verde es otro proyecto: solo se autorizó retirar stock_market.ipynb, conservando el resto.
+El frontend está publicado y verificado: [https://lariza-stock-market-ml.streamlit.app/](https://lariza-stock-market-ml.streamlit.app/). El repositorio independiente [https://github.com/lariza-amoros/stock-market-ml](https://github.com/lariza-amoros/stock-market-ml) contiene notebook, código, datos, modelos, figuras y resultados. Solo stock_market.ipynb fue retirado de Caldero Verde mediante commit recuperable; el resto permanece intacto.
 
 ## 2. Documentos que gobiernan la revisión
 - Enunciado literal: [04_recursos/ASIGNACION_ORIGINAL.txt](../../04_recursos/ASIGNACION_ORIGINAL.txt).
@@ -211,14 +211,14 @@ Pruebas Streamlit AppTest verifican funcionalidad, no certifican todo diseño vi
 ## 17. Frontend: estado real y cierre de entrega
 El original app.py ya ofrece Predicciones, Resultados y Cuenta demo; datos históricos 2024–2025, ocho acciones, selección A/B/C/algoritmo/arquitectura, comparación posterior opcional, capital demo y CSV. La cuenta es local e histórica, sin bróker. El usuario puede reiniciarla; no hay persistencia externa.
 
-Antes de entregar la entrada de despliegue: usar por defecto las elecciones oficiales congeladas, separar claramente predicción y resultado real, mostrar unidades y fechas, verificar capital/costos/orden cronológico, enlazar notebook/informe, probar instalación y documentar Python. El frontend original permite elegir un mismo algoritmo/arquitectura para ambas tareas; ese par no siempre coincide con el par oficial pooled-retorno/individual-riesgo. La entrada de entrega debe hacerlo explícito.
+streamlit_app.py utiliza las elecciones oficiales congeladas: retorno pooled y riesgo individual. Se probaron ocho pronósticos, resultados, cuenta demo, costos, bloqueo de operaciones solapadas y reinicio. Las pruebas locales AppTest pasaron; la aplicación desplegada produjo ocho pronósticos y una operación demo neta de $210.70 sobre $10,000, del 23 al 31 de diciembre de 2025 (NVDA, GOOGL y XOM).
 
-Despliegue recomendado: Streamlit Community Cloud, repositorio stock-market-ml, branch main, archivo streamlit_app.py, Python 3.12. Un enlace al formulario de despliegue no es una URL de app funcionando. No publicar secretos, credenciales, venv, caches ni experimentos como modelo oficial. Dependencias/modelos/datos deben estar incluidos o reproducibles.
+Desplegado en Streamlit Community Cloud: [https://lariza-stock-market-ml.streamlit.app/](https://lariza-stock-market-ml.streamlit.app/), branch main, streamlit_app.py, Python 3.12. Datos y modelos originales incluidos; sin secretos ni conexión a bróker.
 
 ## 18. GitHub y estructura de entrega
-Repo objetivo independiente: lariza-amoros/stock-market-ml. Eliminar únicamente stock_market.ipynb del repositorio Caldero Verde mediante commit recuperable, tras guardar la copia y verificar su Git blob SHA. No borrar Caldero Verde ni su historial. El permiso del conector de GitHub rechazó inicialmente la escritura (HTTP 403); la sesión de navegador está autenticada y se usa como alternativa autorizada.
+Repositorio publicado: [https://github.com/lariza-amoros/stock-market-ml](https://github.com/lariza-amoros/stock-market-ml). Se retiró únicamente stock_market.ipynb de Caldero Verde, con respaldo local y SHA comprobado, mediante [commit 38db7bd](https://github.com/lariza-amoros/caldero-verde/commit/38db7bd9207ce25afaf7cf5a6cad83924900496f). Caldero Verde y su historial se conservaron.
 
-La entrega debe contener notebook vigente, módulos v2, snapshot de datos, modelos entrenados, métricas, figuras, informe, README, requirements, frontend y .gitignore. Experimentos y versiones históricas no se consideran modelo oficial; no subir archivos duplicados/ZIPs gigantes innecesarios. Comprobar clone limpio, referencias de rutas, tamaño de archivos y arranque de frontend antes de afirmar publicación completa.
+Publicados notebook vigente, módulos v2, snapshot de datos, modelos entrenados, métricas, figuras, informe, README, requirements, frontend y .gitignore. Se compararon los Git blob SHA de los archivos académicos publicados contra los locales: código, datos, notebook, modelos y resultados coinciden. La configuración de tema solo difiere en finales de línea. Experimentos e históricos permanecen aparte.
 
 ## 19. Ruta de revisión del código
 | Orden | Archivo/función | Qué verificar |
@@ -283,9 +283,9 @@ La entrega debe contener notebook vigente, módulos v2, snapshot de datos, model
 | Objetivo adicional 70% | Métrica pendiente de precisar | No declarar dirección/F1 >=70% |
 | Revisión personal y uso de IA | Responsabilidad del alumno | Reproducir y explicar una corrección propia |
 | Frontend local | Implementado/probado | Entrada oficial de entrega y prueba final de paquete |
-| Repo independiente | Creado; carga/validación por verificar | Archivos completos y commit comprobado |
-| Retirar notebook de Caldero Verde | Autorizado; respaldado; escritura por verificar | Commit que retire solo ese archivo |
-| Deploy de frontend | Usuario solicitó enlace para hacerlo | Formulario preparado; URL activa tras deploy |
+| Repo independiente | Publicado y archivos verificados | Completo |
+| Retirar notebook de Caldero Verde | Retirado mediante commit recuperable | Completo |
+| Deploy de frontend | Publicado y probado | https://lariza-stock-market-ml.streamlit.app/ |
 | Experimentos | Separados | No sustituir original sin nueva evidencia |
 
 ## 22. Archivos de evidencia que deben acompañar la revisión
